@@ -1,5 +1,8 @@
 package com.pragma.powerup.usermicroservice.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Person {
     private Long id;
     private String name;
@@ -8,11 +11,21 @@ public class Person {
     private String phone;
     private String address;
     private String idDniType;
-    private String dniNumber;
+    private Long dniNumber;
     private String idPersonType;
     private String password;
 
-    public Person(Long id, String name, String surname, String mail, String phone, String address, String idDniType, String dniNumber, String idPersonType, String password) {
+    @JsonCreator
+    public Person(@JsonProperty("id") Long id,
+                  @JsonProperty("name") String name,
+                  @JsonProperty("surname") String surname,
+                  @JsonProperty("mail") String mail,
+                  @JsonProperty("phone") String phone,
+                  @JsonProperty("address") String address,
+                  @JsonProperty("idDniType") String idDniType,
+                  @JsonProperty("dniNumber") Long dniNumber,
+                  @JsonProperty("idPersonType") String idPersonType,
+                  @JsonProperty("password") String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -24,6 +37,7 @@ public class Person {
         this.idPersonType = idPersonType;
         this.password = password;
     }
+
 
     public Long getId() {
         return id;
@@ -81,11 +95,11 @@ public class Person {
         this.idDniType = idDniType;
     }
 
-    public String getDniNumber() {
+    public Long getDniNumber() {
         return dniNumber;
     }
 
-    public void setDniNumber(String dniNumber) {
+    public void setDniNumber(Long dniNumber) {
         this.dniNumber = dniNumber;
     }
 

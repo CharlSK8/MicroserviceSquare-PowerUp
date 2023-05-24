@@ -10,6 +10,7 @@ public class Constants {
     public static final Long EMPLOYEE_ROLE_ID = 2L;
     public static final Long PROVIDER_ROLE_ID = 3L;
     public static final int MAX_PAGE_SIZE = 2;
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String RESPONSE_MESSAGE_KEY = "message";
     public static final String PERSON_CREATED_MESSAGE = "Person created successfully";
     public static final String USER_CREATED_MESSAGE = "User created successfully";
@@ -30,4 +31,11 @@ public class Constants {
     public static final String SWAGGER_LICENSE_NAME_MESSAGE = "Apache 2.0";
     public static final String SWAGGER_LICENSE_URL_MESSAGE = "http://springdoc.org";
     public static final String SWAGGER_TERMS_OF_SERVICE_MESSAGE = "http://swagger.io/terms/";
+    public static final String ENTERED_NULL_OR_EMPTY = "The entered field cannot be empty or null";
+    public static final String PHONE_LENGTH = "The phone must be min 10 and max 13";
+    public static final String PHONE_VALIDATION = "The field must contain numbers or the symbol '+'";
+    public static final String ROLE_NOT_ALLOWED_MESSAGE_ADMIN = "No permission granted to create restaurants with this role";
+    public static final String NIT_VALIDATION = "Only numbers are allowed";
+    public static final String  NAME_VALIDATION = "Numbers and letters are allowed, but numbers alone are not";
+
 }
