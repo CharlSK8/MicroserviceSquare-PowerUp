@@ -1,33 +1,21 @@
-INSERT INTO `person` (
-    `id`,
-    `address`,
-    `dni_number`,
-    `id_dni_type`,
-    `id_person_type`,
-    `mail`,
-    `name`,
-    `password`,
-    `phone`,
-    `surname`,
-    `token_password`
-  )
-VALUES
-  (
-    '1',
-    'st 123 # 456',
-    '123',
-    '1',
-    '1',
-    'email@some.com',
-    'Name',
-    '$2a$10$GlsGSNhkbVon6ZOSNMptOu5RikedRzlCAhMa7YpwvUSS0c88WT99S',
-    '1234567890',
-    'Surname',
-    NULL
-  );
-
-
-INSERT INTO `role` (`id`, `description`, `name`) VALUES ('1', 'ROLE_ADMIN', 'ROLE_ADMIN');
-INSERT INTO `role` (`id`, `description`, `name`) VALUES ('2', 'ROLE_USER', 'ROLE_USER');
-
-INSERT INTO `user` (`id_person`, `id_role`) VALUES ('1', '1');
+INSERT INTO category (`id`, `description`, `name`)  VALUES
+(1, 'Pizzas', 'Variedad de pizzas con diferentes ingredientes y sabores'),
+(2, 'Hamburguesas', 'Deliciosas hamburguesas con carne y opciones vegetarianas'),
+(3, 'Sushi', 'Rollos de sushi frescos y sabrosos con pescado y vegetales'),
+(4, 'Ensaladas', 'Ensaladas frescas y saludables con diferentes aderezos'),
+(5, 'Pastas', 'Platos de pasta con diversas salsas y tipos de pasta'),
+(6, 'Tacos', 'Tortillas de maíz o harina rellenas de carne, pollo o vegetales'),
+(7, 'Comida China', 'Platos de la cocina china como arroz frito y pollo agridulce'),
+(8, 'Comida India', 'Sabores especiados de la cocina india como curry y tandoori'),
+(9, 'Comida Tailandesa', 'Platos tailandeses con sabores agridulces y picantes'),
+(10, 'Comida Mexicana', 'Platos mexicanos como enchiladas, burritos y guacamole'),
+(11, 'Comida Italiana', 'Delicias italianas como lasañas, risottos y tiramisú'),
+(12, 'Comida Japonesa', 'Platos japoneses como ramen, tempura y tempura'),
+(13, 'Mariscos', 'Platos de mariscos frescos como camarones, langostas y calamares'),
+(14, 'Carnes a la parrilla', 'Carnes asadas a la parrilla como filetes, costillas y pollo'),
+(15, 'Sopas', 'Sopas calientes y reconfortantes como sopa de tomate y sopa de pollo'),
+(16, 'Postres', 'Deliciosos postres como pasteles, helados y flanes'),
+(17, 'Desayunos', 'Platos para el desayuno como huevos revueltos, panqueques y tocino'),
+(18, 'Bebidas', 'Bebidas refrescantes como jugos naturales, refrescos y cócteles'),
+(19, 'Vegetariano', 'Platos sin carne con opciones vegetarianas y veganas'),
+(20, 'Vegano', 'Platos sin ingredientes de origen animal');

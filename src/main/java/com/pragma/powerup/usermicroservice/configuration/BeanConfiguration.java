@@ -1,27 +1,24 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.DishMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RestaurantMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RoleMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IPersonEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRestaurantEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IPersonRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.*;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.*;
+import com.pragma.powerup.usermicroservice.domain.api.IDishServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IRoleServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
+import com.pragma.powerup.usermicroservice.domain.spi.IDishPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
+import com.pragma.powerup.usermicroservice.domain.usecase.DishUseCase;
 import com.pragma.powerup.usermicroservice.domain.usecase.RestaurantUseCase;
 import com.pragma.powerup.usermicroservice.domain.usecase.RoleUseCase;
 import com.pragma.powerup.usermicroservice.domain.usecase.UserUseCase;
 import com.pragma.powerup.usermicroservice.utils.JwtUtils;
-import com.pragma.powerup.usermicroservice.utils.RoleValidationInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +34,8 @@ public class BeanConfiguration {
     private final IRoleEntityMapper roleEntityMapper;
     private final IUserEntityMapper userEntityMapper;
     private final IRestaurantEntityMapper restaurantEntityMapper;
+    private final IDishRepository dishRepository;
+    private final IDishEntityMapper dishEntityMapper;
 
 
     @Bean
@@ -64,6 +63,15 @@ public class BeanConfiguration {
     public IRestaurantPersistencePort restaurantPersistencePort(){
         return new RestaurantMysqlAdapter(restaurantRepository,restaurantEntityMapper);
     }
+    @Bean
+    public IDishServicePort dishServicePort(){
+        return new DishUseCase(dishPersistencePort());
+    }
+    @Bean
+    public IDishPersistencePort dishPersistencePort(){
+        return new DishMysqlAdapter(dishRepository, dishEntityMapper);
+    }
+
     @Bean
     public JwtUtils jwtUtils(){
         return new JwtUtils();
