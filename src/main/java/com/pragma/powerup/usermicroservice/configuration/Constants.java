@@ -36,6 +36,8 @@ public class Constants {
     public static final String PHONE_VALIDATION = "The field must contain numbers or the symbol '+'";
     public static final String ROLE_NOT_ALLOWED_MESSAGE_ADMIN = "No permission granted to create restaurants with this role";
     public static final String NIT_VALIDATION = "Only numbers are allowed";
-    public static final String  NAME_VALIDATION = "Numbers and letters are allowed, but numbers alone are not";
-
+    public static final String NAME_VALIDATION = "Numbers and letters are allowed, but numbers alone are not";
+    public static final String PRICE_VALIDATION = "The value entered must be positive integer and greater than zero";
+    public static final String RESTAURANT_NOT_FOUND_MESSAGE = "The id entered does not correspond to a restaurant in DB";
+    public static final String DISH_CREATED_MESSAGE = "Dish created successfully";
 }

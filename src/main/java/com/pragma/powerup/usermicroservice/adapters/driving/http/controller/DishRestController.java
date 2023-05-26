@@ -27,12 +27,12 @@ public class DishRestController {
             responses = {
                     @ApiResponse(responseCode = "201", description = "Dish created",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "409", description = "Restaurant already exists",
+                    @ApiResponse(responseCode = "409", description = "Dish already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/save")
     public ResponseEntity<Map<String, String>> saveRestaurant(@RequestHeader("Authorization") String jwtToken, @Valid @RequestBody DishRequestDto dishRequestDto) {
         iDishHandler.saveDish(dishRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DISH_CREATED_MESSAGE));
     }
 }
