@@ -40,4 +40,6 @@ public class Constants {
     public static final String PRICE_VALIDATION = "The value entered must be positive integer and greater than zero";
     public static final String RESTAURANT_NOT_FOUND_MESSAGE = "The id entered does not correspond to a restaurant in DB";
     public static final String DISH_CREATED_MESSAGE = "Dish created successfully";
+    public static final String DISH_NOT_FOUND_MESSAGE = "The id entered does not correspond to a dish in DB";
+    public static final String DISH_UPDATE_MESSAGE = "Successfully updated dish";
 }

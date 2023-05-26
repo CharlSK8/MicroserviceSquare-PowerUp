@@ -1,13 +1,16 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.DishEntity;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DishNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RestaurantNotFoundException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IDishEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IDishRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
 import com.pragma.powerup.usermicroservice.domain.model.Dish;
 import com.pragma.powerup.usermicroservice.domain.spi.IDishPersistencePort;
 import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DishMysqlAdapter implements IDishPersistencePort {
@@ -22,6 +25,18 @@ public class DishMysqlAdapter implements IDishPersistencePort {
            throw new RestaurantNotFoundException();
        }
         dishRepository.save(dishEntityMapper.toEntity(dish));
+
+    }
+
+    @Override
+    public void updateDish(Long id, Dish dish) {
+        Optional<DishEntity> dishEntity = dishRepository.findById(id);
+        if (!dishEntity.isPresent()) {
+            throw new DishNotFoundException();
+        }
+        dishEntity.get().setPrice(dish.getPrice());
+        dishEntity.get().setDescription(dish.getDescription());
+        dishRepository.save(dishEntity.get());
 
     }
 }

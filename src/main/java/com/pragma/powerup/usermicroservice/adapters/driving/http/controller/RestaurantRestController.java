@@ -42,7 +42,6 @@ public class RestaurantRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/save")
     public ResponseEntity<Map<String, String>> saveRestaurant(@RequestHeader("Authorization") String jwtToken,@Valid @RequestBody RestaurantRequestDto restaurantRequestDto) {
-        //TODO: Validar rol de usuario ingresado en el DTO
         String role = jwtUtils.extractRoleFromJwt(jwtToken);
         if (!role.equals(Constants.ROLE_ADMIN)){
             throw new RoleNotAllowedForCreationException();

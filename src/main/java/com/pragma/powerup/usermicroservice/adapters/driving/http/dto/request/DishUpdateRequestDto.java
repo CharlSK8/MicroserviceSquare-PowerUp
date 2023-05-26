@@ -9,19 +9,11 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class DishRequestDto {
+public class DishUpdateRequestDto {
 
-    @NotBlank(message =  Constants.ENTERED_NULL_OR_EMPTY)
-    private String name;
     @Positive(message = Constants.PRICE_VALIDATION)
     @NotNull(message =  Constants.ENTERED_NULL_OR_EMPTY)
     private String price;
     @NotBlank(message =  Constants.ENTERED_NULL_OR_EMPTY)
     private String description;
-    @NotBlank(message =  Constants.ENTERED_NULL_OR_EMPTY)
-    private String urlImage;
-    @NotNull(message =  Constants.ENTERED_NULL_OR_EMPTY)
-    private Long idCategory;
-    @NotNull(message =  Constants.ENTERED_NULL_OR_EMPTY)
-    private Long idRestaurant;
 }
