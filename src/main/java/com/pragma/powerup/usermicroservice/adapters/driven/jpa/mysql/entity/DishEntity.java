@@ -22,7 +22,7 @@ public class DishEntity {
     private String description;
     private String price;
     private String urlImage;
-    private Boolean active;
+    private boolean status;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private RestaurantEntity restaurantEntity;
@@ -30,4 +30,7 @@ public class DishEntity {
     @JoinColumn(name = "category_entity_id")
     private CategoryEntity categoryEntity;
 
+    public boolean getStatus() {
+        return status;
+    }
 }

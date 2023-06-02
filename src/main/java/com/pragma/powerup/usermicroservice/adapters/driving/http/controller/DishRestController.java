@@ -1,6 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishStatusRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishUpdateRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IDishHandler;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
@@ -37,9 +38,23 @@ public class DishRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DISH_CREATED_MESSAGE));
     }
 
+    @Operation(summary = "Update dish",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Updated dish",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "400", description = "Dish error",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PatchMapping("/update/{id}")
     public ResponseEntity<Map<String, String>> updateDish(@PathVariable Long id,@Valid @RequestBody DishUpdateRequestDto dishUpdateRequestDto) {
         dishHandler.updateDish(id, dishUpdateRequestDto);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DISH_UPDATE_MESSAGE));
+    }
+
+
+    @PatchMapping("/status/{id}")
+    public ResponseEntity<Map<String, String>> updateStatusDish(@PathVariable Long id,@Valid @RequestBody DishStatusRequestDto dishStatusRequestDto) {
+        dishHandler.updateStatusDish(id, dishStatusRequestDto);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DISH_UPDATE_MESSAGE));
     }

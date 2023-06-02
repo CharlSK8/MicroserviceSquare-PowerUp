@@ -1,6 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.mapper;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishStatusRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishUpdateRequestDto;
 import com.pragma.powerup.usermicroservice.domain.model.Dish;
 import org.mapstruct.Mapper;
@@ -15,6 +16,7 @@ public interface IDishRequestMapper {
     @Mapping(target = "restaurant.id", source = "idRestaurant")
     @Mapping(target = "category.id", source = "idCategory")
     Dish toDish (DishRequestDto dishRequestDto);
-
     Dish toDishUpdate (DishUpdateRequestDto dishUpdateRequestDto);
+
+    Dish toDishStatusUpdate (DishStatusRequestDto dishStatusRequestDto);
 }

@@ -7,17 +7,17 @@ public class Dish {
     private String description;
     private String price;
     private String urlImage;
-    private Boolean active;
+    private boolean status;
     private Restaurant restaurant;
     private Category category;
 
-    public Dish(Long id, String name, String description, String price, String urlImage, Restaurant restaurant, Category category) {
+    public Dish(Long id, String name, String description, String price, String urlImage, boolean status, Restaurant restaurant, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.urlImage = urlImage;
-        this.active = true;
+        this.status = status;
         this.restaurant = restaurant;
         this.category = category;
     }
@@ -62,12 +62,12 @@ public class Dish {
         this.urlImage = urlImage;
     }
 
-    public Boolean getActive() {
-        return active;
+    public boolean getStatus() {
+        return status;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Restaurant getRestaurant() {
