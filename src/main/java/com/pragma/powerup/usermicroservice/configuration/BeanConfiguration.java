@@ -6,6 +6,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.Rol
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.*;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.*;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.clients.MicroserviceUser;
 import com.pragma.powerup.usermicroservice.domain.api.IDishServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IRoleServicePort;
@@ -18,7 +19,6 @@ import com.pragma.powerup.usermicroservice.domain.usecase.DishUseCase;
 import com.pragma.powerup.usermicroservice.domain.usecase.RestaurantUseCase;
 import com.pragma.powerup.usermicroservice.domain.usecase.RoleUseCase;
 import com.pragma.powerup.usermicroservice.domain.usecase.UserUseCase;
-import com.pragma.powerup.usermicroservice.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -71,10 +71,10 @@ public class BeanConfiguration {
     public IDishPersistencePort dishPersistencePort(){
         return new DishMysqlAdapter(dishRepository,restaurantRepository, dishEntityMapper);
     }
-
     @Bean
-    public JwtUtils jwtUtils(){
-        return new JwtUtils();
+    public MicroserviceUser microserviceUser(){
+        return new MicroserviceUser();
     }
+
 
 }

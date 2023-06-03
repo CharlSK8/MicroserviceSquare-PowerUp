@@ -1,7 +1,7 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.RoleNotAllowedForRestaurantException;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.InvalidRoleException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -97,6 +97,12 @@ public class ControllerAdvisor {
             DishNotFoundException dishNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, DISH_NOT_FOUND_MESSAGE));
+    }
+    @ExceptionHandler(InvalidRoleException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidRoleException(
+            InvalidRoleException invalidRoleException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_WARNING_MESSAGE_KEY, ROLE_INVALID_MESSAGE));
     }
 
 }

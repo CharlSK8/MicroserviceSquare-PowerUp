@@ -16,6 +16,7 @@ public class Constants {
     public static final String USER_CREATED_MESSAGE = "User created successfully";
     public static final String USER_DELETED_MESSAGE = "User deleted successfully";
     public static final String RESPONSE_ERROR_MESSAGE_KEY = "error";
+    public static final String RESPONSE_WARNING_MESSAGE_KEY = "warning: ";
     public static final String WRONG_CREDENTIALS_MESSAGE = "Wrong credentials";
     public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
     public static final String PERSON_ALREADY_EXISTS_MESSAGE = "A person already exists with the DNI number provided";
@@ -42,4 +43,6 @@ public class Constants {
     public static final String DISH_CREATED_MESSAGE = "Dish created successfully";
     public static final String DISH_NOT_FOUND_MESSAGE = "The id entered does not correspond to a dish in DB";
     public static final String DISH_UPDATE_MESSAGE = "Successfully updated dish";
+    public static final String ROLE_INVALID_MESSAGE = "Access denied, invalid role for this endpoint";
+    public static final String DNI_ERROR = "The field must be numeric only";
 }
