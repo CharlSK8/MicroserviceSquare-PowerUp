@@ -54,12 +54,6 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, MAIL_ALREADY_EXISTS_MESSAGE));
     }
-    @ExceptionHandler(PersonNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handlePersonNotFoundException(
-            PersonNotFoundException personNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_NOT_FOUND_MESSAGE));
-    }
     @ExceptionHandler(RoleNotAllowedForCreationException.class)
     public ResponseEntity<Map<String, String>> handleRoleNotAllowedForCreationException(
             RoleNotAllowedForCreationException roleNotAllowedForCreationException) {
@@ -103,6 +97,13 @@ public class ControllerAdvisor {
             InvalidRoleException invalidRoleException) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Collections.singletonMap(RESPONSE_WARNING_MESSAGE_KEY, ROLE_INVALID_MESSAGE));
+    }
+
+    @ExceptionHandler(PersonNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handlePersonNotFoundException(
+            PersonNotFoundException personNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_NOT_FOUND_MESSAGE));
     }
 
 }

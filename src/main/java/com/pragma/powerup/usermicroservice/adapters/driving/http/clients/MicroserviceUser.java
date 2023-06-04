@@ -1,11 +1,16 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.clients;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.OwnerResponseDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.PersonNotFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 public class MicroserviceUser {
-    //TODO: Generar toda la estructura de archivos para la arquitectura
+    //TODO: Generar toda la estructura de archivos para la arquitectura, handler, service, ports
+
+    @Value("${url.microserviceUser.findByDni}")
+    private String urlMicroserviceUser;
 
     private final RestTemplate restTemplate;
 
@@ -15,18 +20,14 @@ public class MicroserviceUser {
 
     public OwnerResponseDto getOwnerByDniNumber(String dniNumber) {
 
-        //TODO: almacenar url en application.properties
-        String url = "http://localhost:8090/owner/search/" + dniNumber;
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        OwnerResponseDto response = restTemplate.getForObject(url, OwnerResponseDto.class);
+        OwnerResponseDto OwnerResponse = restTemplate.getForObject(urlMicroserviceUser + dniNumber, OwnerResponseDto.class);
 
-        if (response != null) {
-            return response;
+        if (OwnerResponse != null) {
+            return OwnerResponse;
         } else {
-            //TODO: create exception here
-            throw new NullPointerException();
+            throw new PersonNotFoundException();
         }
     }
 }

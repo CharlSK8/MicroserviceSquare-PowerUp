@@ -4,7 +4,6 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Owne
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RoleEntity;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.clients.MicroserviceUser;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.OwnerResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IOwnerResponseMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
