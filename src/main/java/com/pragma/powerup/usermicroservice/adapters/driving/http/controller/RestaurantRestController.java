@@ -1,7 +1,8 @@
-package com.pragma.powerup.usermicroservice.adapters.driving.http.clients.controller;
+package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.RestaurantRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IRestaurantHandler;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.utils.RequiresRole;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,9 +31,10 @@ public class RestaurantRestController {
                     @ApiResponse(responseCode = "409", description = "Restaurant already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/save")
-    public ResponseEntity<Map<String, String>> saveRestaurant(@RequestHeader("Authorization") String jwtToken,@Valid @RequestBody RestaurantRequestDto restaurantRequestDto) {
+    @RequiresRole("ROLE_ADMIN")
+    public ResponseEntity<Map<String, String>> saveRestaurant(@Valid @RequestBody RestaurantRequestDto restaurantRequestDto) {
         restaurantHandler.saveRestaurant(restaurantRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.RESTAURANT_CREATED_MESSAGE));
     }
 }

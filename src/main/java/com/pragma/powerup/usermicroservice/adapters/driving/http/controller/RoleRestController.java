@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.adapters.driving.http.clients.controller;
+package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IRoleHandler;

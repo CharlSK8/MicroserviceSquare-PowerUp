@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.adapters.driving.http.clients.controller;
+package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.PersonResponseDto;

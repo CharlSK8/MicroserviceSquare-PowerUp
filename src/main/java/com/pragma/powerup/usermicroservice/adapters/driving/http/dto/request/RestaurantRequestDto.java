@@ -14,7 +14,7 @@ public class RestaurantRequestDto {
     private String name;
     @NotBlank(message =  Constants.ENTERED_NULL_OR_EMPTY)
     @Pattern(regexp = "[0-9]*", message = Constants.NIT_VALIDATION)
-    private String nit;
+    private String NIT;
     @NotBlank(message = Constants.ENTERED_NULL_OR_EMPTY)
     private String address;
     @NotBlank(message = Constants.ENTERED_NULL_OR_EMPTY)
