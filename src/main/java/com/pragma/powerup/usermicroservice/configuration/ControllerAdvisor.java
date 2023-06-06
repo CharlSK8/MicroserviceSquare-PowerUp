@@ -106,4 +106,11 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_NOT_FOUND_MESSAGE));
     }
 
+    @ExceptionHandler(RestaurantAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleRestaurantAlreadyExistsException(
+            RestaurantAlreadyExistsException restaurantAlreadyExistsException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, RESTAURANT_ALREADY_EXISTS_MESSAGE));
+    }
+
 }
