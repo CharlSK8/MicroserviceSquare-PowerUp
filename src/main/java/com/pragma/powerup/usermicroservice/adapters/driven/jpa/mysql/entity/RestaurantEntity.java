@@ -21,5 +21,7 @@ public class RestaurantEntity {
     private String address;
     private Long phone;
     private String urlLogo;
-    private Long idUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ownerEntity_id")
+    private OwnerEntity ownerEntity;
 }

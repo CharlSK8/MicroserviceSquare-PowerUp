@@ -16,9 +16,11 @@ public class RestaurantMysqlAdapter implements IRestaurantPersistencePort {
     @Override
     public void saveRestaurant(Restaurant restaurant) {
         //TODO: Validate idUser, for create restaurant
-        if(restaurantRepository.findByNIT(restaurant.getNIT()).isPresent()){
+        if(restaurantRepository.findByNIT(restaurant.getNIT()).isPresent()) {
             //TODO: Create exception for restaurant existence
         }
+        //TODO: Crear restTemplate para setear el ownerEntity en restaurant
+        //restaurant.setOwner();
         restaurantRepository.save(restaurantEntityMapper.toEntity(restaurant));
 
     }
