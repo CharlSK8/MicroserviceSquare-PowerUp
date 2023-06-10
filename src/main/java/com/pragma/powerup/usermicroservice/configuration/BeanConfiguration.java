@@ -7,18 +7,11 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.Use
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.*;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.*;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.clients.MicroserviceUser;
-import com.pragma.powerup.usermicroservice.domain.api.IDishServicePort;
-import com.pragma.powerup.usermicroservice.domain.api.IRestaurantServicePort;
-import com.pragma.powerup.usermicroservice.domain.api.IRoleServicePort;
-import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
-import com.pragma.powerup.usermicroservice.domain.spi.IDishPersistencePort;
-import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
-import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
-import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
-import com.pragma.powerup.usermicroservice.domain.usecase.DishUseCase;
-import com.pragma.powerup.usermicroservice.domain.usecase.RestaurantUseCase;
-import com.pragma.powerup.usermicroservice.domain.usecase.RoleUseCase;
-import com.pragma.powerup.usermicroservice.domain.usecase.UserUseCase;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl.OwnerHandlerImpl;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IOwnerResponseMapper;
+import com.pragma.powerup.usermicroservice.domain.api.*;
+import com.pragma.powerup.usermicroservice.domain.spi.*;
+import com.pragma.powerup.usermicroservice.domain.usecase.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +29,8 @@ public class BeanConfiguration {
     private final IRestaurantEntityMapper restaurantEntityMapper;
     private final IDishRepository dishRepository;
     private final IDishEntityMapper dishEntityMapper;
-
+    private final IOwnerResponseMapper ownerResponseMapper;
+    private final OwnerHandlerImpl ownerHandlerImpl;
 
     @Bean
     public IRoleServicePort roleServicePort() {
@@ -57,7 +51,7 @@ public class BeanConfiguration {
     }
     @Bean
     public IRestaurantServicePort restaurantServicePort(){
-        return new RestaurantUseCase(restaurantPersistencePort());
+        return new RestaurantUseCase(restaurantPersistencePort(), ownerServicePort());
     }
     @Bean
     public IRestaurantPersistencePort restaurantPersistencePort(){
@@ -70,6 +64,10 @@ public class BeanConfiguration {
     @Bean
     public IDishPersistencePort dishPersistencePort(){
         return new DishMysqlAdapter(dishRepository,restaurantRepository, dishEntityMapper);
+    }
+    @Bean
+    public IOwnerServicePort ownerServicePort(){
+        return new OwnerUseCase(ownerHandlerImpl,ownerResponseMapper);
     }
     @Bean
     public MicroserviceUser microserviceUser(){

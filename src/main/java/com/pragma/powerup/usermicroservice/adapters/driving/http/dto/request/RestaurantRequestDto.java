@@ -24,5 +24,5 @@ public class RestaurantRequestDto {
     @NotBlank(message = Constants.ENTERED_NULL_OR_EMPTY)
     private String urlLogo;
     @NotNull(message =  Constants.ENTERED_NULL_OR_EMPTY)
-    private Long idUser;
+    private long idUser;
 }

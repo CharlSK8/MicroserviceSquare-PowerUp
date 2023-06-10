@@ -20,8 +20,9 @@ public class RestaurantEntity {
     private Long NIT;
     private String address;
     private Long phone;
+    @Column(name = "url_logo")
     private String urlLogo;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ownerEntity_id")
-    private OwnerEntity ownerEntity;
+    @Column(name = "id_owner")
+    private Long idOwner;
+
 }

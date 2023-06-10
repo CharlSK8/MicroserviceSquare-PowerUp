@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 public class OwnerResponseDto {
 
+    private Long id;
     private String name;
     private String surname;
     private Long dniNumber;

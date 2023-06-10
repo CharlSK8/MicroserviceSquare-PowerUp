@@ -2,6 +2,8 @@ package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.InvalidRoleException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.OwnerNotFoundException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.RestaurantAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
+import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_NOT_FOUND_MESSAGE;
 
 
 @ControllerAdvice
@@ -111,6 +114,13 @@ public class ControllerAdvisor {
             RestaurantAlreadyExistsException restaurantAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, RESTAURANT_ALREADY_EXISTS_MESSAGE));
+    }
+
+    @ExceptionHandler(OwnerNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleOwnerNotFoundException(
+            OwnerNotFoundException ownerNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, OWNER_NOT_FOUND_MESSAGE));
     }
 
 }

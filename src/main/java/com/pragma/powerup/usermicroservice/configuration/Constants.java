@@ -47,4 +47,6 @@ public class Constants {
     public static final String DISH_UPDATE_MESSAGE = "Successfully updated dish";
     public static final String ROLE_INVALID_MESSAGE = "Access denied, invalid role for this endpoint";
     public static final String DNI_ERROR = "The field must be numeric only";
+    public static final String OWNER_NOT_FOUND_MESSAGE = "Person not found in the database.";
+
 }
