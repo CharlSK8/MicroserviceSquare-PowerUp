@@ -14,8 +14,7 @@ jwt:
   expiration: ${EXPIRE_DAYS_SECURITY:3600000}
 
 url:
-  microserviceUser:
-    findByDni: "http://localhost:8090/owner/search/"
+  microserviceUser: "http://localhost:8090/owner"
 
 management:
   endpoints:

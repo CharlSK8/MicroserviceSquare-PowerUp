@@ -4,7 +4,8 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Owne
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.PrincipalUser;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RoleEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IOwnerEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.clients.MicroserviceUser;
+import com.pragma.powerup.usermicroservice.domain.api.IOwnerServicePort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,18 +17,19 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final MicroserviceUser microserviceUser;
+    private final IOwnerServicePort ownerServicePort;
+    @Autowired
     private final IOwnerEntityMapper ownerEntityMapper;
 
-    public UserDetailsServiceImpl(MicroserviceUser microserviceUser, IOwnerEntityMapper ownerEntityMapper) {
-        this.microserviceUser = microserviceUser;
+    public UserDetailsServiceImpl(IOwnerServicePort ownerServicePort, IOwnerEntityMapper ownerEntityMapper) {
+        this.ownerServicePort = ownerServicePort;
         this.ownerEntityMapper = ownerEntityMapper;
     }
 
     @Override
     public UserDetails loadUserByUsername(String dniNumber) throws UsernameNotFoundException {
         try {
-            OwnerEntity owner = ownerEntityMapper.toEntity(microserviceUser.getOwnerByDniNumber(dniNumber));
+            OwnerEntity owner = ownerEntityMapper.toEntity(ownerServicePort.getOwnerByDni(dniNumber));
             List<RoleEntity> roles = new ArrayList<>();
             roles.add(owner.getRoleEntity());
             return PrincipalUser.build(owner, roles);

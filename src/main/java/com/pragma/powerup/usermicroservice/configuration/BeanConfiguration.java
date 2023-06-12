@@ -1,12 +1,8 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.DishMysqlAdapter;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RestaurantMysqlAdapter;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RoleMysqlAdapter;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.*;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.*;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.*;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.clients.MicroserviceUser;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl.OwnerHandlerImpl;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IOwnerResponseMapper;
 import com.pragma.powerup.usermicroservice.domain.api.*;
@@ -69,10 +65,7 @@ public class BeanConfiguration {
     public IOwnerServicePort ownerServicePort(){
         return new OwnerUseCase(ownerHandlerImpl,ownerResponseMapper);
     }
-    @Bean
-    public MicroserviceUser microserviceUser(){
-        return new MicroserviceUser();
-    }
+
 
 
 }
