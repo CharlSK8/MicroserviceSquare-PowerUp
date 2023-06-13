@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,10 +56,10 @@ public class DishRestController {
     }
 
 
-    @PatchMapping("/status/{id}")
+    @PatchMapping("/status/{idDish}")
     @RequiresRole("ROLE_OWNER")
-    public ResponseEntity<Map<String, String>> updateStatusDish(@PathVariable Long id,@Valid @RequestBody DishStatusRequestDto dishStatusRequestDto) {
-        dishHandler.updateStatusDish(id, dishStatusRequestDto);
+    public ResponseEntity<Map<String, String>> updateStatusDish(@RequestHeader(HttpHeaders.AUTHORIZATION) String authorizationHeader, @PathVariable Long idDish, @Valid @RequestBody DishStatusRequestDto dishStatusRequestDto) {
+        dishHandler.updateStatusDish(idDish, dishStatusRequestDto, authorizationHeader);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.DISH_UPDATE_MESSAGE));
     }

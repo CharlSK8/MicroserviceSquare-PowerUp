@@ -28,7 +28,9 @@ public class DishHandlerImpl implements IDishHandler {
     }
 
     @Override
-    public void updateStatusDish(Long id, DishStatusRequestDto dishStatusRequestDto) {
-        dishServicePort.updateStatusDish(id, dishRequestMapper.toDishStatusUpdate(dishStatusRequestDto));
+    public void updateStatusDish(Long id, DishStatusRequestDto dishStatusRequestDto, String token) {
+        dishServicePort.updateStatusDish(id, dishRequestMapper.toDishStatusUpdate(dishStatusRequestDto), token);
     }
+
+
 }

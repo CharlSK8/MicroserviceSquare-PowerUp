@@ -2,7 +2,6 @@ package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.DishEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DishNotFoundException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RestaurantNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IDishEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IDishRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
@@ -21,9 +20,6 @@ public class DishMysqlAdapter implements IDishPersistencePort {
 
     @Override
     public void saveDish(Dish dish) {
-       if(!restaurantRepository.existsById(dish.getRestaurant().getId())){
-           throw new RestaurantNotFoundException();
-       }
         dishRepository.save(dishEntityMapper.toEntity(dish));
 
     }
@@ -48,6 +44,11 @@ public class DishMysqlAdapter implements IDishPersistencePort {
         }
         dishEntity.get().setStatus(dish.getStatus());
         dishRepository.save(dishEntity.get());
+    }
+
+    @Override
+    public Optional<DishEntity> findById(Long id) {
+        return dishRepository.findById(id);
     }
 
 

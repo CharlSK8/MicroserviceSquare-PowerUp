@@ -25,4 +25,9 @@ public class RestaurantMysqlAdapter implements IRestaurantPersistencePort {
     public Optional<RestaurantEntity> findByNIT(Long nit) {
         return restaurantRepository.findByNIT(nit);
     }
+
+    @Override
+    public Optional<RestaurantEntity> findById(Long id) {
+        return restaurantRepository.findById(id);
+    }
 }

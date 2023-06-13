@@ -2,8 +2,7 @@ package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.InvalidRoleException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.OwnerNotFoundException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.RestaurantAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -121,6 +120,19 @@ public class ControllerAdvisor {
             OwnerNotFoundException ownerNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, OWNER_NOT_FOUND_MESSAGE));
+    }
+    @ExceptionHandler(DishNotFoundDbException.class)
+    public ResponseEntity<Map<String, String>> handleDishNotFoundDbException(
+            DishNotFoundDbException dishNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, DISH_NOT_FOUND_MESSAGE));
+    }
+
+    @ExceptionHandler(UnauthorizedDishEditStatusException.class)
+    public ResponseEntity<Map<String, String>> handleUnauthorizedDishEditStatusException(
+            UnauthorizedDishEditStatusException unauthorizedDishEditStatusException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, UNAUTHORIZED_DISH_EDIT_MESSAGE));
     }
 
 }

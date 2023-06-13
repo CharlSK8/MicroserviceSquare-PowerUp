@@ -7,6 +7,6 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.Dis
 public interface IDishHandler {
     void saveDish(DishRequestDto dishRequestDto);
     void updateDish(Long id, DishUpdateRequestDto dishUpdateRequestDto);
-    void updateStatusDish(Long id, DishStatusRequestDto dishStatusRequestDto);
+    void updateStatusDish(Long id, DishStatusRequestDto dishStatusRequestDto, String token);
 
 }
