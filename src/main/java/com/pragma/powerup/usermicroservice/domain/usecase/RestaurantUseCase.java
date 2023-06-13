@@ -9,6 +9,8 @@ import com.pragma.powerup.usermicroservice.domain.model.Restaurant;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
 import feign.FeignException;
 
+import java.util.List;
+
 public class RestaurantUseCase implements IRestaurantServicePort {
 
     private final IRestaurantPersistencePort restaurantPersistencePort;
@@ -33,5 +35,10 @@ public class RestaurantUseCase implements IRestaurantServicePort {
         } catch (Exception e) {
             throw new RuntimeException("An error occurred while saving the restaurant: " +  e.getMessage());
         }
+    }
+
+    @Override
+    public List<Restaurant> getAllRestaurantsByNameAsc(int page, int itemsPerPage) {
+        return restaurantPersistencePort.getAllRestaurantsByNameAsc(page, itemsPerPage);
     }
 }
