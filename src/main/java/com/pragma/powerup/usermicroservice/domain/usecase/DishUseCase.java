@@ -17,6 +17,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.security.Key;
+import java.util.List;
 
 public class DishUseCase implements IDishServicePort {
 
@@ -36,7 +37,7 @@ public class DishUseCase implements IDishServicePort {
     @Override
     public void saveDish(Dish dish) {
         dish.setStatus(true);
-        if(!restaurantPersistencePort.findById(dish.getId()).isPresent()) {
+        if(!restaurantPersistencePort.findById(dish.getRestaurant().getId()).isPresent()) {
             throw new RestaurantNotFoundException();
         }
         dishPersistencePort.saveDish(dish);
@@ -58,6 +59,11 @@ public class DishUseCase implements IDishServicePort {
             throw new UnauthorizedDishEditStatusException();
         }
         dishPersistencePort.updateStatusDish(id, dish);
+    }
+
+    @Override
+    public List<Dish> findDishesByRestaurantAndCategory(Long idRestaurant, Long idCategory, int page, int itemsPerPage) {
+        return dishPersistencePort.findDishesByRestaurantAndCategory(idRestaurant, idCategory, page, itemsPerPage);
     }
 
     private String extractDniNumberFromToken(String token) {

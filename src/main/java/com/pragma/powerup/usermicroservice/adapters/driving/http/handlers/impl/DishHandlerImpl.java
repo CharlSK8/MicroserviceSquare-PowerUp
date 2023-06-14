@@ -3,11 +3,15 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.impl;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishStatusRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.DishUpdateRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.DishResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IDishHandler;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IDishRequestMapper;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IDishResponseMapper;
 import com.pragma.powerup.usermicroservice.domain.api.IDishServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +19,7 @@ public class DishHandlerImpl implements IDishHandler {
 
     private final IDishServicePort dishServicePort;
     private final IDishRequestMapper dishRequestMapper;
+    private final IDishResponseMapper dishResponseMapper;
 
     @Override
     public void saveDish(DishRequestDto dishRequestDto) {
@@ -30,6 +35,11 @@ public class DishHandlerImpl implements IDishHandler {
     @Override
     public void updateStatusDish(Long id, DishStatusRequestDto dishStatusRequestDto, String token) {
         dishServicePort.updateStatusDish(id, dishRequestMapper.toDishStatusUpdate(dishStatusRequestDto), token);
+    }
+
+    @Override
+    public List<DishResponseDto> findDishesByRestaurantAndCategory(Long idRestaurant, Long idCategory, int page, int itemsPerPage) {
+        return dishResponseMapper.toDishResponseDto(dishServicePort.findDishesByRestaurantAndCategory(idRestaurant, idCategory, page, itemsPerPage));
     }
 
 

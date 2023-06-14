@@ -8,6 +8,7 @@ import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +37,8 @@ public class RestaurantMysqlAdapter implements IRestaurantPersistencePort {
 
     @Override
     public List<Restaurant> getAllRestaurantsByNameAsc(int page, int itemsPerPage) {
-        PageRequest pageRequest = PageRequest.of(page, itemsPerPage);
-        Page<RestaurantEntity> restaurantPage = restaurantRepository.findAllByOrderByNameAsc(pageRequest);
+        Pageable pageRequest = PageRequest.of(page, itemsPerPage);
+        Page<RestaurantEntity> restaurantPage = restaurantRepository.findAllByOrderByNameAsc(1L, pageRequest);
         List<RestaurantEntity> restaurantList = restaurantPage.getContent();
         return restaurantEntityMapper.toRestaurant(restaurantList);
     }

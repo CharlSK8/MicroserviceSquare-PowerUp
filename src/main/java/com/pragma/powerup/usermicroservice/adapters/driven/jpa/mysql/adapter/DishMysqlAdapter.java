@@ -4,18 +4,18 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Dish
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DishNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IDishEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IDishRepository;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRestaurantRepository;
 import com.pragma.powerup.usermicroservice.domain.model.Dish;
 import com.pragma.powerup.usermicroservice.domain.spi.IDishPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DishMysqlAdapter implements IDishPersistencePort {
 
     private final IDishRepository dishRepository;
-    private final IRestaurantRepository restaurantRepository;
     private final IDishEntityMapper dishEntityMapper;
 
     @Override
@@ -49,6 +49,12 @@ public class DishMysqlAdapter implements IDishPersistencePort {
     @Override
     public Optional<DishEntity> findById(Long id) {
         return dishRepository.findById(id);
+    }
+
+    @Override
+    public List<Dish> findDishesByRestaurantAndCategory(Long idRestaurant, Long idCategory, int page, int itemsPerPage) {
+        PageRequest pageRequest = PageRequest.of(page, itemsPerPage);
+        return dishEntityMapper.toDish(dishRepository.findDishesByRestaurantEntityIdAndCategoryEntityId(idRestaurant, idCategory, pageRequest).getContent());
     }
 
 

@@ -50,7 +50,7 @@ public class RestaurantRestController {
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/all")
-    @RequiresRole("ROLE_OWNER")
+    @RequiresRole("ROLE_CUSTOMER")
     public ResponseEntity<List<RestaurantResponseDto>> getAllRestaurant(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int itemsPerPage) {
         return ResponseEntity.ok(restaurantHandler.getAllRestaurantsByNameAsc(page, itemsPerPage));
     }
