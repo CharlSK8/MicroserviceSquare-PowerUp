@@ -42,6 +42,8 @@ public class Constants {
     public static final String NAME_VALIDATION = "Numbers and letters are allowed, but numbers alone are not";
     public static final String PRICE_VALIDATION = "The value entered must be positive integer and greater than zero";
     public static final String RESTAURANT_NOT_FOUND_MESSAGE = "The id entered does not correspond to a restaurant in DB";
+    public static final String CATEGORY_NOT_FOUND_MESSAGE = "The id entered does not correspond to a category in DB";
+    public static final String MENU_NOT_FOUND_MESSAGE = "The selected restaurant does not contain dishes from the chosen category";
     public static final String DISH_CREATED_MESSAGE = "Dish created successfully";
     public static final String DISH_NOT_FOUND_MESSAGE = "The id entered does not correspond to a dish in DB";
     public static final String DISH_UPDATE_MESSAGE = "Successfully updated dish";

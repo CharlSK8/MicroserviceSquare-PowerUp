@@ -36,6 +36,11 @@ public class RestaurantMysqlAdapter implements IRestaurantPersistencePort {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return restaurantRepository.existsById(id);
+    }
+
+    @Override
     public List<Restaurant> getAllRestaurantsByNameAsc(int page, int itemsPerPage) {
         Pageable pageRequest = PageRequest.of(page, itemsPerPage);
         Page<RestaurantEntity> restaurantPage = restaurantRepository.findAllByOrderByNameAsc(1L, pageRequest);

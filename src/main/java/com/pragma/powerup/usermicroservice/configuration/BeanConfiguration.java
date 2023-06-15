@@ -20,6 +20,7 @@ public class BeanConfiguration {
     private final IPersonRepository personRepository;
     private final IUserRepository userRepository;
     private final IRestaurantRepository restaurantRepository;
+    private final ICategoryRepository categoryRepository;
     private final IRoleEntityMapper roleEntityMapper;
     private final IUserEntityMapper userEntityMapper;
     private final IRestaurantEntityMapper restaurantEntityMapper;
@@ -55,7 +56,7 @@ public class BeanConfiguration {
     }
     @Bean
     public IDishServicePort dishServicePort(){
-        return new DishUseCase(dishPersistencePort(), ownerServicePort(), restaurantPersistencePort());
+        return new DishUseCase(dishPersistencePort(), ownerServicePort(), restaurantPersistencePort(), categoryPersistencePort());
     }
     @Bean
     public IDishPersistencePort dishPersistencePort(){
@@ -64,6 +65,10 @@ public class BeanConfiguration {
     @Bean
     public IOwnerServicePort ownerServicePort(){
         return new OwnerUseCase(ownerHandlerImpl,ownerResponseMapper);
+    }
+    @Bean
+    public ICategoryPersistencePort categoryPersistencePort(){
+        return  new CategoryMysqlAdapter(categoryRepository);
     }
 
 

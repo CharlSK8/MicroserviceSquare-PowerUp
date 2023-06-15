@@ -135,4 +135,17 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, UNAUTHORIZED_DISH_EDIT_MESSAGE));
     }
 
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleCategoryNotFoundException(
+            CategoryNotFoundException categoryNotFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, CATEGORY_NOT_FOUND_MESSAGE));
+    }
+    @ExceptionHandler(MenuNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleMenuNotFoundException(
+            MenuNotFoundException menuNotFoundException) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(RESPONSE_WARNING_MESSAGE_KEY, MENU_NOT_FOUND_MESSAGE));
+    }
+
 }

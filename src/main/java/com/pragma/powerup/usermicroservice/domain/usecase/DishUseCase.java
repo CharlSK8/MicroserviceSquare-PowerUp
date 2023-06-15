@@ -4,11 +4,10 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Dish
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RestaurantEntity;
 import com.pragma.powerup.usermicroservice.domain.api.IDishServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IOwnerServicePort;
-import com.pragma.powerup.usermicroservice.domain.exceptions.DishNotFoundDbException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.RestaurantNotFoundException;
-import com.pragma.powerup.usermicroservice.domain.exceptions.UnauthorizedDishEditStatusException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.*;
 import com.pragma.powerup.usermicroservice.domain.model.Dish;
 import com.pragma.powerup.usermicroservice.domain.model.Owner;
+import com.pragma.powerup.usermicroservice.domain.spi.ICategoryPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IDishPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IRestaurantPersistencePort;
 import io.jsonwebtoken.Claims;
@@ -27,11 +26,13 @@ public class DishUseCase implements IDishServicePort {
     private final IDishPersistencePort dishPersistencePort;
     private final IOwnerServicePort ownerServicePort;
     private final IRestaurantPersistencePort restaurantPersistencePort;
+    private final ICategoryPersistencePort categoryPersistencePort;
 
-    public DishUseCase(IDishPersistencePort dishPersistencePort, IOwnerServicePort ownerServicePort, IRestaurantPersistencePort restaurantPersistencePort) {
+    public DishUseCase(IDishPersistencePort dishPersistencePort, IOwnerServicePort ownerServicePort, IRestaurantPersistencePort restaurantPersistencePort, ICategoryPersistencePort categoryPersistencePort) {
         this.dishPersistencePort = dishPersistencePort;
         this.ownerServicePort = ownerServicePort;
         this.restaurantPersistencePort = restaurantPersistencePort;
+        this.categoryPersistencePort = categoryPersistencePort;
     }
 
     @Override
@@ -62,8 +63,27 @@ public class DishUseCase implements IDishServicePort {
     }
 
     @Override
-    public List<Dish> findDishesByRestaurantAndCategory(Long idRestaurant, Long idCategory, int page, int itemsPerPage) {
-        return dishPersistencePort.findDishesByRestaurantAndCategory(idRestaurant, idCategory, page, itemsPerPage);
+    public List<Dish> findDishesByRestaurantAndCategory(Long restaurantId, Long categoryId, int page, int itemsPerPage) {
+        validateRestaurantExists(restaurantId);
+        validateCategoryExists(categoryId);
+
+        List<Dish> listDishes = dishPersistencePort.findDishesByRestaurantAndCategory(restaurantId, categoryId, page, itemsPerPage);
+
+        if(listDishes.isEmpty()){
+            throw new MenuNotFoundException();
+        }
+        return listDishes;
+    }
+    private void validateRestaurantExists(Long restaurantId) {
+        if (!restaurantPersistencePort.existsById(restaurantId)) {
+            throw new RestaurantNotFoundException();
+        }
+    }
+
+    private void validateCategoryExists(Long categoryId) {
+        if (!categoryPersistencePort.existsById(categoryId)) {
+            throw new CategoryNotFoundException();
+        }
     }
 
     private String extractDniNumberFromToken(String token) {

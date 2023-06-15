@@ -10,5 +10,6 @@ public interface IRestaurantPersistencePort {
     void saveRestaurant(Restaurant restaurant);
     Optional<RestaurantEntity> findByNIT(Long nit);
     Optional<RestaurantEntity> findById(Long id);
+    boolean existsById(Long id);
     List<Restaurant> getAllRestaurantsByNameAsc(int page, int itemsPerPage);
 }
