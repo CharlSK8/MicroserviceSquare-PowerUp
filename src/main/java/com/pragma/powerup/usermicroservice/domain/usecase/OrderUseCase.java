@@ -1,9 +1,11 @@
 package com.pragma.powerup.usermicroservice.domain.usecase;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.OrderStatusRequestDto;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.api.IOrderServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.DishNotFoundDbException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.OrderAlreadyInProcessException;
+import com.pragma.powerup.usermicroservice.domain.exceptions.OrderNullException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.RestaurantNotFoundException;
 import com.pragma.powerup.usermicroservice.domain.model.Order;
 import com.pragma.powerup.usermicroservice.domain.model.OrderDishes;
@@ -51,6 +53,15 @@ public class OrderUseCase implements IOrderServicePort {
         saveOrderDish(dishList, orderPersistence);
     }
 
+    @Override
+    public List<Order> findByStatus(OrderStatusRequestDto orderStatusRequestDto, int page, int itemsPerPage) {
+        List<Order> orderList = orderPersistencePort.findByStatus(orderStatusRequestDto.getStatus(), page, itemsPerPage);
+        if(orderList.isEmpty()){
+            throw new OrderNullException();
+        }
+        return orderList ;
+    }
+
     public void saveOrderDish(List<OrderDishes> orderDish, Order order){
         for (OrderDishes orderDishes: orderDish) {
             orderDishes.setOrder(order);
@@ -71,4 +82,5 @@ public class OrderUseCase implements IOrderServicePort {
             throw new RestaurantNotFoundException();
         }
     }
+
 }

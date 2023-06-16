@@ -3,6 +3,7 @@ package com.pragma.powerup.usermicroservice.configuration;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.InvalidRoleException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.*;
+import jakarta.persistence.criteria.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -153,6 +154,13 @@ public class ControllerAdvisor {
             OrderAlreadyInProcessException orderAlreadyInProcessException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ORDER_ALREADY_PROCESS));
+    }
+
+    @ExceptionHandler(OrderNullException.class)
+    public ResponseEntity<Map<String, String>> handleOrderNullException(
+            OrderNullException orderNullException) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(null);
     }
 
 }
