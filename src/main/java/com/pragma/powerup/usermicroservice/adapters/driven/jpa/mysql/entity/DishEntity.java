@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "dish")
 @NoArgsConstructor
@@ -29,6 +31,8 @@ public class DishEntity {
     @ManyToOne
     @JoinColumn(name = "category_entity_id")
     private CategoryEntity categoryEntity;
+    @OneToMany(mappedBy = "dishEntity")
+    private List<OrderDishEntity> orderDishes;
 
     public boolean getStatus() {
         return status;

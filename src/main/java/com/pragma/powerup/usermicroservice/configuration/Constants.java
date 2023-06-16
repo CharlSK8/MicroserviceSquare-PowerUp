@@ -45,6 +45,7 @@ public class Constants {
     public static final String CATEGORY_NOT_FOUND_MESSAGE = "The id entered does not correspond to a category in DB";
     public static final String MENU_NOT_FOUND_MESSAGE = "The selected restaurant does not contain dishes from the chosen category";
     public static final String DISH_CREATED_MESSAGE = "Dish created successfully";
+    public static final String ORDER_CREATED_MESSAGE = "Order created successfully";
     public static final String DISH_NOT_FOUND_MESSAGE = "The id entered does not correspond to a dish in DB";
     public static final String DISH_UPDATE_MESSAGE = "Successfully updated dish";
     public static final String ROLE_INVALID_MESSAGE = "Access denied, invalid role for this endpoint";

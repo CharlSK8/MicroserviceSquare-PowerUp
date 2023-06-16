@@ -76,7 +76,7 @@ public class DishRestController {
                     @ApiResponse(responseCode = "404", description = "No data found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/restaurant/{idRestaurant}/category/{idCategory}")
-    @RequiresRole("ROLE_OWNER")
+    @RequiresRole("ROLE_CUSTOMER")
     public ResponseEntity<List<DishResponseDto>> getAllDishByRestaurantAndCategory(@PathVariable Long idRestaurant, @PathVariable Long idCategory, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int itemsPerPage) {
         return ResponseEntity.ok(dishHandler.findDishesByRestaurantAndCategory(idRestaurant, idCategory, page, itemsPerPage));
     }
