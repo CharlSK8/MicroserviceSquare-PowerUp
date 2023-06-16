@@ -10,6 +10,7 @@ public interface IDishPersistencePort {
     void saveDish(Dish dish);
     void updateDish(Long id, Dish dish);
     void updateStatusDish(Long id, Dish dish);
+    boolean existsById(Long id);
     Optional<DishEntity> findById(Long id);
     List<Dish> findDishesByRestaurantAndCategory(Long idRestaurant, Long idCategory, int page, int itemsPerPage);
 }

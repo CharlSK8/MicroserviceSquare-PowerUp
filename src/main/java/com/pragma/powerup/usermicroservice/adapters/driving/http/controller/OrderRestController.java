@@ -10,12 +10,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Map;
@@ -34,9 +32,9 @@ public class OrderRestController {
                     @ApiResponse(responseCode = "409", description = "Order already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping("/save")
-    @RequiresRole("ROLE_OWNER")
-    public ResponseEntity<Map<String, String>> saveOrder(@Valid @RequestBody OrderRequestDto orderRequestDto) {
-        orderHandler.saveOrder(orderRequestDto);
+    @RequiresRole("ROLE_CUSTOMER")
+    public ResponseEntity<Map<String, String>> saveOrder(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @Valid @RequestBody OrderRequestDto orderRequestDto) {
+        orderHandler.saveOrder(orderRequestDto, token);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.ORDER_CREATED_MESSAGE));
     }

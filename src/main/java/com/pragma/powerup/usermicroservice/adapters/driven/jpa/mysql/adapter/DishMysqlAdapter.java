@@ -47,6 +47,11 @@ public class DishMysqlAdapter implements IDishPersistencePort {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return dishRepository.existsById(id);
+    }
+
+    @Override
     public Optional<DishEntity> findById(Long id) {
         return dishRepository.findById(id);
     }

@@ -8,6 +8,7 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IOwnerRe
 import com.pragma.powerup.usermicroservice.domain.api.*;
 import com.pragma.powerup.usermicroservice.domain.spi.*;
 import com.pragma.powerup.usermicroservice.domain.usecase.*;
+import com.pragma.powerup.usermicroservice.domain.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,7 @@ public class BeanConfiguration {
     private final IOrderEntityMapper orderEntityMapper;
     private final IOrderDishEntityMapper orderDishEntityMapper;
     private final OwnerHandlerImpl ownerHandlerImpl;
+   // private final JwtUtils jwtUtils;
 
     @Bean
     public IRoleServicePort roleServicePort() {
@@ -81,11 +83,15 @@ public class BeanConfiguration {
     }
     @Bean
     public IOrderServicePort orderServicePort(){
-        return new OrderUseCase(orderPersistencePort(), orderDishPersistencePort());
+        return new OrderUseCase(jwtUtilsBean(), orderPersistencePort(), orderDishPersistencePort(), dishPersistencePort(), restaurantPersistencePort());
     }
     @Bean
     public IOrderDishPersistencePort orderDishPersistencePort(){
         return new OrderDishMysqlAdapter(orderDishRepository, orderDishEntityMapper);
+    }
+    @Bean
+    public JwtUtils jwtUtilsBean(){
+        return new JwtUtils(ownerServicePort());
     }
 
 }

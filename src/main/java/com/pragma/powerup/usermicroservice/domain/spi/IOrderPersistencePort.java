@@ -4,4 +4,6 @@ import com.pragma.powerup.usermicroservice.domain.model.Order;
 
 public interface IOrderPersistencePort {
     Order saveOrder(Order order);
+
+    boolean existsOrderInProcessByOwnerId(Long idOwner);
 }

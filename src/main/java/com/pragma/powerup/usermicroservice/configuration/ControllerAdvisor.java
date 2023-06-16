@@ -148,4 +148,11 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_WARNING_MESSAGE_KEY, MENU_NOT_FOUND_MESSAGE));
     }
 
+    @ExceptionHandler(OrderAlreadyInProcessException.class)
+    public ResponseEntity<Map<String, String>> handleOrderAlreadyInProcessException(
+            OrderAlreadyInProcessException orderAlreadyInProcessException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ORDER_ALREADY_PROCESS));
+    }
+
 }

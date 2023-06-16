@@ -15,9 +15,10 @@ public class OrderHandlerImpl implements IOrderHandler {
     private final IOrderServicePort orderServicePort;
     private final IOrderRequestMapper orderRequestMapper;
     @Override
-    public void saveOrder(OrderRequestDto orderRequestDto) {
+    public void saveOrder(OrderRequestDto orderRequestDto, String token) {
         orderServicePort.saveOrder(orderRequestMapper.toOrder(orderRequestDto),
-                orderRequestMapper.toOrderDishList(orderRequestDto.getOrdersDishes()));
+                orderRequestMapper.toOrderDishList(orderRequestDto.getOrdersDishes()),
+                token);
     }
 
 }

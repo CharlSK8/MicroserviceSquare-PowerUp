@@ -40,6 +40,10 @@ public class JwtProvider {
                 .compact();
     }
 
+    public String getIdFromToken(String token) {
+        return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().get("id").toString();
+    }
+
     public String getNombreUsuarioFromToken(String token) {
         return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().getSubject();
     }
