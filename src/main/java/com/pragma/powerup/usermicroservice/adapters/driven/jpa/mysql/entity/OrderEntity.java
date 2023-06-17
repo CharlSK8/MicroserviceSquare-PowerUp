@@ -28,6 +28,8 @@ public class OrderEntity {
     private RestaurantEntity restaurantEntity;
     @Column(name = "owner_id")
     private Long ownerId;
+    @Column(name = "employee_id")
+    private Long employeeId;
     @OneToMany(mappedBy = "orderEntity")
     private List<OrderDishEntity> orderDishes;
 }
